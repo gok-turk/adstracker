@@ -243,20 +243,89 @@ if ($view === 'ips') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdsTracker Pro | Çoklu Domain Google Ads Güvenlik &amp; Sahte Tıklama Paneli</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('adstracker_theme');
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <style>
     :root {
       --bg-dark: #090e1a;
       --bg-card: #131b2e;
       --bg-card-alt: #1a243d;
+      --header-bg: #0d1424;
       --border-color: #23304a;
+      --border-subtle: #1a253a;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --text-label: #cbd5e1;
+      --input-bg: #090e1a;
+      --input-border: #334155;
+      --input-text: #ffffff;
+      --table-th-bg: #0d1424;
+      --table-border: #1a253a;
+      --table-hover: rgba(255, 255, 255, 0.02);
+      --stat-bar-bg: #090e1a;
+      --site-switcher-bg: #090e1a;
+      --exclusion-bg: linear-gradient(135deg, #162035 0%, #0f172a 100%);
+      --exclusion-border: rgba(245, 158, 11, 0.4);
+      --exclusion-steps-bg: rgba(0,0,0,0.25);
+      --exclusion-ip-color: #fbbf24;
+      --modal-bg: #141c2e;
+      --btn-sec-bg: #1e293b;
+      --btn-sec-color: #cbd5e1;
+      --btn-sec-border: #334155;
+      --btn-sec-hover: #334155;
       --accent-gold: #f59e0b;
       --accent-gold-dark: #d97706;
       --danger-red: #ef4444;
       --warning-orange: #f97316;
       --success-green: #10b981;
+      --ip-link: #60a5fa;
+      --code-bg: #070c17;
+      --code-border: #223049;
+      --code-color: #38bdf8;
+      --shadow: 0 8px 24px rgba(0,0,0,0.2);
       --radius: 10px;
+    }
+
+    [data-theme="light"] {
+      --bg-dark: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-alt: #f8fafc;
+      --header-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-label: #334155;
+      --input-bg: #ffffff;
+      --input-border: #cbd5e1;
+      --input-text: #0f172a;
+      --table-th-bg: #f8fafc;
+      --table-border: #f1f5f9;
+      --table-hover: #f8fafc;
+      --stat-bar-bg: #e2e8f0;
+      --site-switcher-bg: #f8fafc;
+      --exclusion-bg: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      --exclusion-border: #fde68a;
+      --exclusion-steps-bg: #fef3c7;
+      --exclusion-ip-color: #b45309;
+      --modal-bg: #ffffff;
+      --btn-sec-bg: #f1f5f9;
+      --btn-sec-color: #334155;
+      --btn-sec-border: #cbd5e1;
+      --btn-sec-hover: #e2e8f0;
+      --ip-link: #2563eb;
+      --code-bg: #0f172a;
+      --code-border: #1e293b;
+      --code-color: #38bdf8;
+      --shadow: 0 4px 16px rgba(15,23,42,0.06);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -266,19 +335,25 @@ if ($view === 'ips') {
       color: var(--text-main);
       line-height: 1.5;
       padding-bottom: 60px;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
     a { text-decoration: none; color: inherit; }
 
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-main) !important;
+    }
+
     /* Header Nav */
     .header-nav {
-      background: #0d1424;
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border-color);
       padding: 12px 24px;
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
     .header-inner {
@@ -297,7 +372,7 @@ if ($view === 'ips') {
       gap: 10px;
       font-size: 1.18rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
     }
     .brand-title span { color: var(--accent-gold); }
 
@@ -316,8 +391,8 @@ if ($view === 'ips') {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #090e1a;
-      border: 1px solid #334155;
+      background: var(--site-switcher-bg);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 4px 10px;
     }
@@ -333,7 +408,7 @@ if ($view === 'ips') {
     .site-select {
       background: transparent;
       border: none;
-      color: #ffffff;
+      color: var(--text-main);
       font-size: 0.86rem;
       font-weight: 700;
       outline: none;
@@ -341,8 +416,8 @@ if ($view === 'ips') {
     }
 
     .site-select option {
-      background: #0d1424;
-      color: #ffffff;
+      background: var(--bg-card);
+      color: var(--text-main);
     }
 
     /* Tabs Navigation Bar */
@@ -350,7 +425,7 @@ if ($view === 'ips') {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: #090e1a;
+      background: var(--site-switcher-bg);
       border: 1px solid var(--border-color);
       padding: 4px;
       border-radius: 8px;
@@ -369,11 +444,45 @@ if ($view === 'ips') {
       gap: 6px;
     }
 
-    .tab-link:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
+    .tab-link:hover { color: var(--text-main); background: rgba(148, 163, 184, 0.15); }
 
     .tab-link.active {
       background: var(--accent-gold);
       color: #0f172a;
+    }
+
+    /* Theme Toggle Button (Sun & Moon) */
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--btn-sec-bg);
+      color: var(--btn-sec-color);
+      border: 1px solid var(--btn-sec-border);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--btn-sec-hover);
+      color: var(--text-main);
+      border-color: var(--accent-gold);
+    }
+    .theme-toggle-btn .theme-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+    .theme-toggle-btn:hover .theme-icon {
+      transform: rotate(20deg) scale(1.15);
+    }
+    .theme-toggle-btn .theme-label {
+      font-size: 0.78rem;
     }
 
     .btn {
@@ -389,8 +498,8 @@ if ($view === 'ips') {
       transition: all 0.2s;
     }
 
-    .btn-secondary { background: #1e293b; color: #cbd5e1; border-color: #334155; }
-    .btn-secondary:hover { background: #334155; color: #ffffff; }
+    .btn-secondary { background: var(--btn-sec-bg); color: var(--btn-sec-color); border-color: var(--btn-sec-border); }
+    .btn-secondary:hover { background: var(--btn-sec-hover); color: var(--text-main); }
 
     .btn-gold { background: var(--accent-gold); color: #0f172a; }
     .btn-gold:hover { background: #d97706; }
@@ -420,6 +529,9 @@ if ($view === 'ips') {
     .btn-code { background: #2563eb; color: #ffffff; }
     .btn-code:hover { background: #1d4ed8; }
 
+    .btn-delete { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .btn-delete:hover { background: #ef4444; color: #ffffff; }
+
     .container {
       max-width: 1400px;
       margin: 24px auto;
@@ -444,9 +556,10 @@ if ($view === 'ips') {
       display: flex;
       align-items: center;
       gap: 14px;
-      transition: transform 0.2s;
+      transition: transform 0.2s, border-color 0.2s;
+      box-shadow: var(--shadow);
     }
-    .kpi-card:hover { transform: translateY(-2px); border-color: #3b4d75; }
+    .kpi-card:hover { transform: translateY(-2px); border-color: var(--accent-gold); }
 
     .kpi-icon {
       width: 48px;
@@ -465,7 +578,7 @@ if ($view === 'ips') {
     .icon-visits { background: rgba(16, 185, 129, 0.15); color: #34d399; }
     .icon-today { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 
-    .kpi-info .val { font-size: 1.6rem; font-weight: 900; line-height: 1.1; color: #ffffff; }
+    .kpi-info .val { font-size: 1.6rem; font-weight: 900; line-height: 1.1; color: var(--text-main); }
     .kpi-info .label { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
 
     /* Dashboard 2-column Layout */
@@ -482,13 +595,13 @@ if ($view === 'ips') {
       border: 1px solid var(--border-color);
       border-radius: var(--radius);
       padding: 22px 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow);
     }
 
     .content-box-title {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 14px;
       display: flex;
       align-items: center;
@@ -497,21 +610,22 @@ if ($view === 'ips') {
 
     /* Google Ads Exclusion Tool Box */
     .exclusion-box {
-      background: linear-gradient(135deg, #162035 0%, #0f172a 100%);
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      background: var(--exclusion-bg);
+      border: 1px solid var(--exclusion-border);
       border-radius: var(--radius);
       padding: 22px 24px;
       margin-bottom: 24px;
       display: grid;
       grid-template-columns: 1fr;
       gap: 18px;
+      box-shadow: var(--shadow);
     }
     @media (min-width: 860px) { .exclusion-box { grid-template-columns: 1.5fr 1fr; } }
 
     .exclusion-left h3 {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -527,8 +641,8 @@ if ($view === 'ips') {
 
     .exclusion-steps {
       font-size: 0.8rem;
-      color: #cbd5e1;
-      background: rgba(0,0,0,0.25);
+      color: var(--text-main);
+      background: var(--exclusion-steps-bg);
       border-radius: 6px;
       padding: 10px 14px;
       line-height: 1.5;
@@ -538,10 +652,10 @@ if ($view === 'ips') {
     .ip-textarea {
       width: 100%;
       height: 90px;
-      background: #090e1a;
-      border: 1px solid #2d3b55;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
       border-radius: 6px;
-      color: #fbbf24;
+      color: var(--exclusion-ip-color);
       font-family: monospace;
       font-size: 0.85rem;
       padding: 8px 10px;
@@ -576,8 +690,8 @@ if ($view === 'ips') {
       font-size: 0.86rem;
     }
     .data-table th {
-      background: #0d1424;
-      color: #94a3b8;
+      background: var(--table-th-bg);
+      color: var(--text-muted);
       font-weight: 700;
       padding: 12px 14px;
       border-bottom: 2px solid var(--border-color);
@@ -585,19 +699,20 @@ if ($view === 'ips') {
     }
     .data-table td {
       padding: 12px 14px;
-      border-bottom: 1px solid #1a253a;
+      border-bottom: 1px solid var(--table-border);
       vertical-align: middle;
+      color: var(--text-main);
     }
-    .data-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    .data-table tr:hover td { background: var(--table-hover); }
 
     .daily-stats-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .daily-stats-table th { color: #94a3b8; font-weight: 700; padding: 8px 10px; border-bottom: 1px solid var(--border-color); text-align: left; }
-    .daily-stats-table td { padding: 10px 10px; border-bottom: 1px solid #1c273e; vertical-align: middle; }
+    .daily-stats-table th { color: var(--text-muted); font-weight: 700; padding: 8px 10px; border-bottom: 1px solid var(--border-color); text-align: left; }
+    .daily-stats-table td { padding: 10px 10px; border-bottom: 1px solid var(--table-border); vertical-align: middle; color: var(--text-main); }
 
     .stat-bar-container {
       display: flex;
       height: 8px;
-      background: #090e1a;
+      background: var(--stat-bar-bg);
       border-radius: 4px;
       overflow: hidden;
       width: 100%;
@@ -606,8 +721,8 @@ if ($view === 'ips') {
     .stat-bar-ads { background: #3b82f6; }
     .stat-bar-organic { background: #64748b; }
 
-    .ip-link { font-weight: 800; color: #60a5fa; font-family: monospace; font-size: 0.92rem; }
-    .ip-link:hover { text-decoration: underline; color: #93c5fd; }
+    .ip-link { font-weight: 800; color: var(--ip-link); font-family: monospace; font-size: 0.92rem; }
+    .ip-link:hover { text-decoration: underline; }
 
     .badge {
       display: inline-block;
@@ -644,21 +759,21 @@ if ($view === 'ips') {
       font-weight: 700;
       border-radius: 6px;
       cursor: pointer;
-      border: 1px solid #334155;
-      background: #1e293b;
-      color: #94a3b8;
+      border: 1px solid var(--btn-sec-border);
+      background: var(--btn-sec-bg);
+      color: var(--btn-sec-color);
       transition: all 0.2s;
     }
-    .daily-filter-btn:hover { background: #334155; color: #ffffff; }
+    .daily-filter-btn:hover { background: var(--btn-sec-hover); color: var(--text-main); }
     .daily-filter-btn.active { background: var(--accent-gold); color: #0f172a; border-color: var(--accent-gold); }
 
     .text-input, .select-input {
       width: 100%;
       padding: 8px 12px;
-      background: #090e1a;
-      border: 1px solid #334155;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
       border-radius: 6px;
-      color: #ffffff;
+      color: var(--input-text);
       font-size: 0.84rem;
       outline: none;
     }
@@ -679,8 +794,8 @@ if ($view === 'ips') {
     .modal-overlay.open { display: flex; }
 
     .modal-box {
-      background: #141c2e;
-      border: 1px solid #334155;
+      background: var(--modal-bg);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius);
       width: 100%;
       max-width: 720px;
@@ -688,6 +803,7 @@ if ($view === 'ips') {
       overflow-y: auto;
       padding: 24px;
       box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      color: var(--text-main);
     }
 
     .modal-head {
@@ -695,24 +811,90 @@ if ($view === 'ips') {
       align-items: center;
       justify-content: space-between;
       margin-bottom: 18px;
-      border-bottom: 1px solid #23304a;
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 12px;
     }
-    .modal-head h3 { font-size: 1.15rem; color: #ffffff; font-weight: 800; }
-    .close-modal { font-size: 1.4rem; background: none; border: none; color: #94a3b8; cursor: pointer; }
+    .modal-head h3 { font-size: 1.15rem; color: var(--text-main); font-weight: 800; }
+    .close-modal { font-size: 1.4rem; background: none; border: none; color: var(--text-muted); cursor: pointer; }
 
     .code-box {
-      background: #070c17;
-      border: 1px solid #223049;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
       border-radius: 8px;
       padding: 14px;
       font-family: monospace;
       font-size: 0.82rem;
-      color: #38bdf8;
+      color: var(--code-color);
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-all;
       margin-bottom: 12px;
+    }
+
+    /* Light Theme Specific Enhancements */
+    [data-theme="light"] .modal-overlay {
+      background: rgba(15, 23, 42, 0.45);
+    }
+    [data-theme="light"] .brand-tag {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #b45309;
+    }
+    [data-theme="light"] .badge-ads {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+    [data-theme="light"] .badge-organic {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+    [data-theme="light"] .badge-suspicious {
+      background: #ffedd5;
+      color: #c2410c;
+      border: 1px solid #fed7aa;
+    }
+    [data-theme="light"] .badge-blocked {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    [data-theme="light"] .badge-safe {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    [data-theme="light"] .badge-site {
+      background: #ede9fe;
+      color: #6d28d9;
+      border: 1px solid #ddd6fe;
+    }
+    [data-theme="light"] .counter-low {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    [data-theme="light"] .counter-med {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+    [data-theme="light"] .counter-high {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #ef4444;
+    }
+    [data-theme="light"] .stat-bar-organic {
+      background: #cbd5e1;
+    }
+    [data-theme="light"] .btn-inspect {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    [data-theme="light"] .btn-inspect:hover {
+      background: #cbd5e1;
+    }
+    [data-theme="light"] label {
+      color: #334155 !important;
     }
   </style>
 </head>
@@ -760,6 +942,12 @@ if ($view === 'ips') {
       </nav>
 
       <div style="display: flex; align-items: center; gap: 8px;">
+        <!-- Theme Toggle (Moon / Sun) -->
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Aydınlık / Karanlık Tema">
+          <span class="theme-icon" id="themeToggleIcon">🌙</span>
+          <span class="theme-label" id="themeToggleLabel">Koyu</span>
+        </button>
+
         <button type="button" class="btn btn-gold" onclick="openModal('addSiteModal')">
           ➕ Yeni Site Ekle
         </button>
@@ -1010,7 +1198,7 @@ if ($view === 'ips') {
 
           <!-- Date Quick Selector & Export Button -->
           <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-            <div style="display: flex; gap: 4px; background: #090e1a; padding: 4px; border-radius: 6px; border: 1px solid var(--border-color);">
+            <div style="display: flex; gap: 4px; background: var(--site-switcher-bg); padding: 4px; border-radius: 6px; border: 1px solid var(--border-color);">
               <a href="index.php?view=dashboard&site_id=<?= $selectedSiteId ?>&day=today" class="btn-sm <?= $dashDay === 'today' ? 'btn-gold' : 'btn-secondary' ?>">Bugün</a>
               <a href="index.php?view=dashboard&site_id=<?= $selectedSiteId ?>&day=yesterday" class="btn-sm <?= $dashDay === 'yesterday' ? 'btn-gold' : 'btn-secondary' ?>">Dün</a>
               <a href="index.php?view=dashboard&site_id=<?= $selectedSiteId ?>&day=last7" class="btn-sm <?= $dashDay === 'last7' ? 'btn-gold' : 'btn-secondary' ?>">Son 7 Gün</a>
@@ -1214,7 +1402,7 @@ if ($view === 'ips') {
                     </td>
 
                     <td>
-                      <code style="background: #090e1a; padding: 4px 8px; border-radius: 4px; color: #fbbf24; font-size: 0.78rem;">
+                      <code style="background: var(--input-bg); border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 4px; color: var(--accent-gold-dark); font-size: 0.78rem;">
                         <?= htmlspecialchars($st['site_key']) ?>
                       </code>
                     </td>
@@ -1890,7 +2078,7 @@ if ($view === 'ips') {
           let html = '<div style="max-height: 440px; overflow-y: auto;">';
           data.history.forEach((h, idx) => {
             const isAds = parseInt(h.is_google_ads) === 1;
-            html += '<div style="background:#090e1a; border:1px solid #1e293b; border-radius:6px; padding:10px 12px; margin-bottom:8px; font-size:0.82rem;">';
+            html += '<div style="background:var(--bg-card-alt); border:1px solid var(--border-color); border-radius:6px; padding:10px 12px; margin-bottom:8px; font-size:0.82rem;">';
             html += '  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">';
             html += '    <span style="color:#f59e0b; font-weight:700;">#' + (data.history.length - idx) + ' • ' + h.created_at + '</span>';
             html += '    <div><span class="badge badge-site" style="margin-right:4px;">' + escapeHtml(h.site_name) + '</span>' + (isAds ? '<span class="badge badge-ads">🎯 Google Ads</span>' : '<span class="badge badge-organic">🌐 Organik</span>') + '</div>';
@@ -1945,6 +2133,35 @@ if ($view === 'ips') {
           });
       });
     }
+
+    // Theme Switcher (Aydınlık / Karanlık Tema)
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('adstracker_theme', theme);
+      const icon = document.getElementById('themeToggleIcon');
+      const label = document.getElementById('themeToggleLabel');
+      const btn = document.getElementById('themeToggleBtn');
+      if (theme === 'light') {
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Açık';
+        if (btn) btn.setAttribute('title', 'Koyu temaya geç');
+      } else {
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Koyu';
+        if (btn) btn.setAttribute('title', 'Açık temaya geç');
+      }
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const target = cur === 'dark' ? 'light' : 'dark';
+      applyTheme(target);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const saved = localStorage.getItem('adstracker_theme') || 'dark';
+      applyTheme(saved);
+    });
 
     function escapeHtml(text) {
       if (!text) return '';

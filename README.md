@@ -26,6 +26,7 @@ Aylık yüksek abonelik ücretleri talep eden yabancı servisler yerine kendi su
 - **Detaylı Cihaz & Parmak İzi:** Ziyaretçinin mobil modelini (iPhone, Samsung, Xiaomi), tarayıcısını, işletim sistemini ve ekran çözünürlüğünü analiz eder.
 - **Tıklama Sıklığı & Otomatik Blokaj:** Aynı gün içinde belirlenen eşiği (örn: 3 Ads tıklaması) aşan IP'leri otomatik sahte/şüpheli işaretler ve engeller.
 - **Gelişmiş Raporlama & CSV Çıktısı:** 14 günlük görsel grafikler, günlük IP listesi, canlı arama ve Excel uyumlu UTF-8 CSV dışa aktarma.
+- **Koyu & Açık Tema Desteği (Dark / Light Mode):** Üst barda yer alan Ay (🌙) ve Güneş (☀️) ikonuyla panel temasını göz yormayan aydınlık moda tek tıkla geçirebilirsiniz. Tercihiniz otomatik hatırlanır.
 - **Sıfır Bağımlılık (Zero-Config):** MySQL veritabanı kurmanıza gerek yoktur, dahili SQLite ile kurulum gerektirmeden dosya atıldığı anda çalışır.
 
 ---

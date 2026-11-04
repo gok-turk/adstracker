@@ -24,44 +24,129 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giriş Yap | AdsTracker Pro Çoklu Site Güvenlik Paneli</title>
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('adstracker_theme');
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <style>
+    :root {
+      --bg-dark: #090e1a;
+      --bg-card: #131b2e;
+      --border-color: #23304a;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-label: #cbd5e1;
+      --input-bg: #090e1a;
+      --input-border: #334155;
+      --input-text: #ffffff;
+      --accent-gold: #f59e0b;
+      --accent-gold-hover: #d97706;
+      --shadow: 0 20px 40px rgba(0,0,0,0.4);
+      --footer-border: #1c273e;
+      --btn-sec-bg: #1e293b;
+      --btn-sec-color: #cbd5e1;
+      --btn-sec-border: #334155;
+      --btn-sec-hover: #334155;
+    }
+    [data-theme="light"] {
+      --bg-dark: #f1f5f9;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-label: #334155;
+      --input-bg: #ffffff;
+      --input-border: #cbd5e1;
+      --input-text: #0f172a;
+      --shadow: 0 16px 40px rgba(15,23,42,0.08);
+      --footer-border: #f1f5f9;
+      --btn-sec-bg: #ffffff;
+      --btn-sec-color: #334155;
+      --btn-sec-border: #cbd5e1;
+      --btn-sec-hover: #f1f5f9;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #090e1a;
+      background: var(--bg-dark);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #f8fafc;
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      position: relative;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .theme-corner {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--btn-sec-bg);
+      color: var(--btn-sec-color);
+      border: 1px solid var(--btn-sec-border);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--btn-sec-hover);
+      color: var(--text-main);
+      border-color: var(--accent-gold);
+    }
+    .theme-toggle-btn .theme-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.25s ease;
+    }
+    .theme-toggle-btn:hover .theme-icon {
+      transform: rotate(20deg) scale(1.15);
     }
     .login-card {
-      background: #131b2e;
-      border: 1px solid #23304a;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 40px;
       width: 100%;
       max-width: 440px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      box-shadow: var(--shadow);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
     .brand-header {
       text-align: center;
       margin-bottom: 28px;
     }
     .brand-header svg {
-      color: #f59e0b;
+      color: var(--accent-gold);
       margin-bottom: 12px;
     }
     .brand-title {
       font-size: 1.45rem;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
     }
-    .brand-title span { color: #f59e0b; }
+    .brand-title span { color: var(--accent-gold); }
     .brand-sub {
       font-size: 0.85rem;
-      color: #94a3b8;
+      color: var(--text-muted);
       margin-top: 4px;
     }
     .form-group {
@@ -71,27 +156,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       display: block;
       font-size: 0.82rem;
       font-weight: 700;
-      color: #cbd5e1;
+      color: var(--text-label);
       margin-bottom: 6px;
     }
     input {
       width: 100%;
       padding: 12px 14px;
-      background: #090e1a;
-      border: 1px solid #334155;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
       border-radius: 8px;
-      color: #ffffff;
+      color: var(--input-text);
       font-size: 0.92rem;
       outline: none;
       transition: border 0.2s;
     }
     input:focus {
-      border-color: #f59e0b;
+      border-color: var(--accent-gold);
     }
     .btn-submit {
       width: 100%;
       padding: 13px;
-      background: #f59e0b;
+      background: var(--accent-gold);
       color: #0f172a;
       border: none;
       border-radius: 8px;
@@ -102,12 +187,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       transition: background 0.2s;
     }
     .btn-submit:hover {
-      background: #d97706;
+      background: var(--accent-gold-hover);
     }
     .error-msg {
       background: rgba(239, 68, 68, 0.15);
       border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
+      color: #ef4444;
       padding: 10px 14px;
       border-radius: 6px;
       font-size: 0.85rem;
@@ -117,14 +202,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .login-footer {
       margin-top: 24px;
       padding-top: 18px;
-      border-top: 1px solid #1c273e;
+      border-top: 1px solid var(--footer-border);
       text-align: center;
       font-size: 0.78rem;
-      color: #64748b;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
+
+  <div class="theme-corner">
+    <button type="button" id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Aydınlık / Karanlık Tema">
+      <span class="theme-icon" id="themeToggleIcon">🌙</span>
+      <span class="theme-label" id="themeToggleLabel">Koyu</span>
+    </button>
+  </div>
 
   <div class="login-card">
     <div class="brand-header">
@@ -156,5 +248,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 
+  <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('adstracker_theme', theme);
+      const icon = document.getElementById('themeToggleIcon');
+      const label = document.getElementById('themeToggleLabel');
+      const btn = document.getElementById('themeToggleBtn');
+      if (theme === 'light') {
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Açık';
+        if (btn) btn.setAttribute('title', 'Koyu temaya geç');
+      } else {
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Koyu';
+        if (btn) btn.setAttribute('title', 'Açık temaya geç');
+      }
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const target = cur === 'dark' ? 'light' : 'dark';
+      applyTheme(target);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const saved = localStorage.getItem('adstracker_theme') || 'dark';
+      applyTheme(saved);
+    });
+  </script>
 </body>
 </html>
