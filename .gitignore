@@ -1,0 +1,16 @@
+# Environment & Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local temporary cookies & logs
+*cookie*.txt
+*.log
+*.tmp
+temp_*
+
+# SQLite journal & WAL temporary files
+/data/*.sqlite-journal
+/data/*.sqlite-wal
+/data/*.sqlite-shm

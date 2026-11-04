@@ -1,0 +1,7 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Güvenlik: data klasöründeki sqlite veritabanına doğrudan webden erişimi engelle
+    RewriteRule ^data/ - [F,L]
+</IfModule>
